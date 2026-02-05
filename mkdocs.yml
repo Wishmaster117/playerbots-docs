@@ -26,6 +26,6 @@ extra_css:
 nav:
   - Home: index.md
   - Module map & glossary: module-map-and-glossary.md
-  - Phase 1 (high-level overview): phase-1-high-level-overview.md
+  - High-level architecture: high-level-architecture.md
   - Phase 2 (execution flows): phase-2-execution-flows-ai-tick.md
   - Roadmap: roadmap.md
