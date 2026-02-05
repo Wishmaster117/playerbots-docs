@@ -1,18 +1,11 @@
-## 2) “CHANGELOG”
+# Core changes for mod‑playerbots (Changelog)
 
-```md
-# Core changes for mod-playerbots (Changelog)
-
-This is a compact changelog of AzerothCore core modifications required by the `Playerbot` core branch to support **mod-playerbots**.
-
----
+This is a compact changelog of AzerothCore core modifications required by the `Playerbot` core branch to support **mod‑playerbots**.
 
 ## Build / CMake
 
 - Detect `mod-playerbots` module and define `MOD_PLAYERBOTS` for relevant targets.
 - Link `modules` with `mysql` when playerbots is present.
-
----
 
 ## Databases
 
@@ -22,10 +15,8 @@ This is a compact changelog of AzerothCore core modifications required by the `P
 - Extend `DatabaseLoader`:
   - new flag `DATABASE_PLAYERBOTS`
   - `DATABASE_MASK_ALL` includes playerbots (when enabled)
-  - add `SetUpdateFlags()` to OR-in flags
+  - add `SetUpdateFlags()` to OR‑in flags
   - add template instantiation for `AddDatabase<PlayerbotsDatabaseConnection>()`
-
----
 
 ## DB lifecycle hooks (DatabaseScript)
 
@@ -42,26 +33,20 @@ Integrate in worldserver:
 
 - Call `OnDatabasesLoading()` after DB loader load and abort startup on failure.
 - Call `OnDatabasesClosing()` on shutdown.
-- Forward sync-query warning toggles into scripts.
-
----
+- Forward sync‑query warning toggles into scripts.
 
 ## Logging
 
 - Add `Appender.Playerbots` and `Logger.playerbots` (dedicated `Playerbots.log`).
-
----
 
 ## Scripting: PlayerbotScript family
 
 - Add `PlayerbotScript` type and registration.
 - Add `ScriptMgr` dispatch methods:
   - LFG queue check, kill task check, petition account check
-  - bot update cadence, per-session update
+  - bot update cadence, per‑session update
   - bot logout (single + all)
-  - packet-sent callback
-
----
+  - packet‑sent callback
 
 ## Networking / Sessions
 
@@ -76,15 +61,11 @@ Integrate in worldserver:
 - `WorldSessionMgr::KickAll()`:
   - call `OnPlayerbotLogoutBots()` behind `MOD_PLAYERBOTS`
 
----
-
 ## Player hooks
 
 - Add `PlayerScript::OnPlayerAfterUpdate(...)`
 - Add additional chat hook enums:
   - `OnChat`, `OnChatWithReceiver`, `OnChatWithGroup`, `OnChatWithGuild`, `OnChatWithChannel`
-
----
 
 ## Movement
 

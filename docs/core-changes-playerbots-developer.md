@@ -1,12 +1,10 @@
 # Core integration notes (Developer-only)
 
-This page is aimed at developers maintaining the **Playerbot core fork** or working on low-level integration between AzerothCore and mod-playerbots.
+This page is aimed at developers maintaining the **Playerbot core fork** or working on low‑level integration between AzerothCore and mod‑playerbots.
 
 It focuses on **entry points, contracts, and gotchas**.
 
----
-
-## Compile-time contract: `MOD_PLAYERBOTS`
+## Compile‑time contract: `MOD_PLAYERBOTS`
 
 All core changes are intended to be behind a single feature gate:
 
@@ -15,8 +13,6 @@ All core changes are intended to be behind a single feature gate:
 The build system defines it automatically when the `mod-playerbots` module is detected during module configuration, and propagates it to the targets the module depends on.
 
 **Rule:** do not introduce additional compile flags for playerbots unless strictly necessary—keep the fork easy to rebase.
-
----
 
 ## Database contract
 
@@ -38,11 +34,9 @@ The module expects the usual AzerothCore DB patterns to work:
 
 - `DATABASE_PLAYERBOTS` flag
 - `DATABASE_MASK_ALL` includes it when enabled
-- `SetUpdateFlags()` allows OR-ing flags (instead of requiring const at ctor)
+- `SetUpdateFlags()` allows OR‑ing flags (instead of requiring const at ctor)
 
-**Implementation guideline:** keep all playerbots database behavior module-driven via scripts (see DatabaseScript hooks), avoid hardcoding playerbots SQL logic in core.
-
----
+**Implementation guideline:** keep all playerbots database behavior module‑driven via scripts (see DatabaseScript hooks), avoid hardcoding playerbots SQL logic in core.
 
 ## DB lifecycle hooks: `DatabaseScript`
 
@@ -65,9 +59,7 @@ Core forwards `WarnAboutSyncQueries(true/false)` toggles into:
 
 This keeps “DB warning mode” consistent if the module does DB work during the world loop.
 
----
-
-## PlayerbotScript: module-side control plane
+## PlayerbotScript: module‑side control plane
 
 A new `PlayerbotScript` family exists specifically so playerbots logic stays in the module.
 
@@ -80,8 +72,6 @@ Key dispatch points in `ScriptMgr`:
 
 **Design intent:** core provides event timing + minimal plumbing; module owns behavior.
 
----
-
 ## Packet visibility: `ServerScript::OnPacketReceived`
 
 Core adds:
@@ -93,8 +83,6 @@ and calls it from `WorldSession::Update()` behind `MOD_PLAYERBOTS`, after handle
 **Important behavior:**
 - ScriptMgr makes a copy of the packet for dispatch.
 - This is a “tap” for observability and module logic; do not mutate session queue inside this callback unless you fully understand ordering.
-
----
 
 ## WorldSession bot sessions
 
@@ -119,9 +107,7 @@ Added API:
 
 This is useful for:
 - bot client emulation / state sync
-- debugging bot-visible opcodes
-
----
+- debugging bot‑visible opcodes
 
 ## WorldSessionMgr shutdown hook
 
@@ -129,8 +115,6 @@ This is useful for:
 - `ScriptMgr::OnPlayerbotLogoutBots()` (behind `MOD_PLAYERBOTS`)
 
 This ensures bot cleanup happens on global kicks / shutdown sequences.
-
----
 
 ## PlayerScript additions
 
@@ -146,8 +130,6 @@ This ensures bot cleanup happens on global kicks / shutdown sequences.
 - parse/route chat commands
 - update bot AI after core player update
 
----
-
 ## Movement integration: reverse spline orientation
 
 `PointMovementGenerator::DoInitialize()`:
@@ -155,23 +137,19 @@ This ensures bot cleanup happens on global kicks / shutdown sequences.
 
 This is intentionally surgical: no rewrite of pathing, just an extra orientation mode used by bots.
 
----
-
 ## Rebase discipline (recommended)
 
 To keep the fork maintainable:
 
-1. Keep all playerbots-specific core changes either:
+1. Keep all playerbots‑specific core changes either:
    - behind `MOD_PLAYERBOTS`, or
-   - in new minimal hook functions that are no-ops by default.
+   - in new minimal hook functions that are no‑ops by default.
 2. Avoid touching unrelated gameplay logic.
 3. Prefer adding **hook points** (ScriptMgr / ScriptDefines) over embedding module logic into core.
 4. When adding new entry points, document:
    - call site
    - expected invariants (thread, timing, player existence)
    - failure behavior (abort startup, ignore, etc.)
-
----
 
 ## Quick reference: core touchpoints
 
@@ -185,9 +163,9 @@ To keep the fork maintainable:
   - `DatabaseScript` lifecycle extensions
   - `PlayerbotScript` family
   - `ServerScript::OnPacketReceived`
-  - `PlayerScript` after-update + chat hooks
+  - `PlayerScript` after‑update + chat hooks
 - Sessions:
   - `WorldSession` bot flag / packet hooks
-  - `WorldSessionMgr::KickAll()` logout-bots hook
+  - `WorldSessionMgr::KickAll()` logout‑bots hook
 - Movement:
   - reversed orientation in `PointMovementGenerator`
