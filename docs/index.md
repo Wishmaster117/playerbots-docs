@@ -15,4 +15,7 @@ keep it approachable for new contributors.
 - [AI architecture](ai-architecture.md)
 - [Gameplay-specific systems](gameplay-specific-systems.md)
 - [Data & configuration architecture](data-configs-architecture.md)
+- [Azerothcore Integration](core-changes-playerbots.md)
+- [Azerothcore Changelogs](core-changes-playerbots-changelog.md)
+- [Azerothcore Dev Only](core-changes-playerbots-developer.md)
 - [Roadmap](roadmap.md)

@@ -31,4 +31,7 @@ nav:
   - AI architecture: ai-architecture.md
   - Gameplay systems: gameplay-specific-systems.md
   - data & configs: data-configs-architecture.md
+  - Azerothcore Integration: core-changes-playerbots.md
+  - Azerothcore Changelogs: core-changes-playerbots-changelog.md
+  - Azerothcore Dev Only: core-changes-playerbots-developer.md
   - Roadmap: roadmap.md
