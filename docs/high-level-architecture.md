@@ -158,40 +158,40 @@ sequenceDiagram
 ```mermaid
 flowchart TD
   subgraph Construction[AI engine construction]
-    A[PlayerbotAI::PlayerbotAI] --> B[AiFactory::createAiObjectContext]
-    A --> C[AiFactory::createCombatEngine]
-    A --> D[AiFactory::createNonCombatEngine]
-    A --> E[AiFactory::createDeadEngine]
-    C --> F[AddDefaultCombatStrategies]
-    D --> G[AddDefaultNonCombatStrategies]
-    E --> H[AddDefaultDeadStrategies]
-    F --> I[Engine::Init]
+    A["PlayerbotAI::PlayerbotAI"] --> B["AiFactory::createAiObjectContext"]
+    A --> C["AiFactory::createCombatEngine"]
+    A --> D["AiFactory::createNonCombatEngine"]
+    A --> E["AiFactory::createDeadEngine"]
+    C --> F["AddDefaultCombatStrategies"]
+    D --> G["AddDefaultNonCombatStrategies"]
+    E --> H["AddDefaultDeadStrategies"]
+    F --> I["Engine::Init"]
     G --> I
     H --> I
   end
 
   subgraph Tick[Per-bot update tick]
-    J[PlayerbotAI::UpdateAI] --> K[UpdateAIInternal]
-    K --> L[Packet queues + command handling]
-    K --> M[Logout logic]
-    K --> N[DoNextAction(minimal)]
+    J["PlayerbotAI::UpdateAI"] --> K["UpdateAIInternal"]
+    K --> L["Packet queues + command handling"]
+    K --> M["Logout logic"]
+    K --> N["DoNextAction(minimal)"]
   end
 
   subgraph Managers[Manager ticks]
-    O[PlayerbotMgr::UpdateAIInternal] --> P[Master-bound error notification timers]
-    Q[RandomPlayerbotMgr::UpdateAIInternal] --> R[Random bot lifecycle + scheduling]
+    O["PlayerbotMgr::UpdateAIInternal"] --> P["Master-bound error notification timers"]
+    Q["RandomPlayerbotMgr::UpdateAIInternal"] --> R["Random bot lifecycle + scheduling"]
   end
 
   subgraph RandomData[Random bot data stores]
-    S[BattlegroundData / VisualBots / Supporters / LfgDungeons]
-    T[BattleMastersCache / eventCache / RPG caches]
-    U[players / currentBots / playerBots]
+    S["BattlegroundData / VisualBots / Supporters / LfgDungeons"]
+    T["BattleMastersCache / eventCache / RPG caches"]
+    U["players / currentBots / playerBots"]
   end
 
-  J -. uses .-> O
-  J -. uses .-> Q
-  Q -. reads/writes .-> S
-  Q -. reads/writes .-> T
-  Q -. reads/writes .-> U
+  J -.->|uses| O
+  J -.->|uses| Q
+  Q -.->|reads/writes| S
+  Q -.->|reads/writes| T
+  Q -.->|reads/writes| U
 ```
   
