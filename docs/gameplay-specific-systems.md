@@ -26,6 +26,15 @@ This page maps the **gameplay systems** that sit on top of the core AI architect
 - Movement is sensitive to world state; avoid forcing movement when a bot is already in flight, teleporting, or logging out.
 - Prefer existing movement helpers and flags rather than manual movement flag hacks.
 
+```mermaid
+flowchart TD
+  A["Strategy / Trigger"] --> B["MovementAction (MoveTo/MoveNear)"]
+  B --> C["MotionMaster / Movement flags"]
+  B --> D["TravelTarget value"]
+  D --> E["TravelMgr destinations"]
+  B --> F["BattleGroundTactics paths"]
+```
+
 ## 4.2 — Combat (melee / ranged / heal)
 
 **Role**
@@ -48,6 +57,14 @@ This page maps the **gameplay systems** that sit on top of the core AI architect
 **Risks / pitfalls**
 - Avoid duplicating existing combat checks (use shared helpers and values).
 - Keep action relevance balanced to prevent “spammy” or unsafe actions.
+
+```mermaid
+flowchart TD
+  A["AiFactory combat engine"] --> B["Combat strategies"]
+  B --> C["Triggers -> NextAction"]
+  C --> D["Action::Execute"]
+  D --> E["Spell/Combat helpers"]
+```
 
 ## 4.3 — Group / Raid logic
 
@@ -72,6 +89,14 @@ This page maps the **gameplay systems** that sit on top of the core AI architect
 - Raid logic often relies on movement timing; keep movement changes minimal and tested.
 - Avoid hard‑coding actions that conflict with generic combat logic.
 
+```mermaid
+flowchart TD
+  A["RaidStrategyContext"] --> B["Encounter strategy"]
+  B --> C["Raid triggers"]
+  C --> D["Raid actions"]
+  D --> E["Movement/target selection"]
+```
+
 ## 4.4 — LFG / BG / Arena
 
 **Role**
@@ -95,6 +120,14 @@ This page maps the **gameplay systems** that sit on top of the core AI architect
 - BG paths must exist for the target BG; missing paths can cause movement failures.
 - Arena strategy tuning should stay consistent with core combat expectations.
 
+```mermaid
+flowchart TD
+  A["RandomPlayerbotMgr"] --> B["BG/LFG checks"]
+  B --> C["Join/queue logic"]
+  C --> D["BattleGroundTactics"]
+  D --> E["Paths/objectives"]
+```
+
 ## 4.5 — Random bot RPG logic
 
 **Role**
@@ -117,3 +150,11 @@ This page maps the **gameplay systems** that sit on top of the core AI architect
 **Risks / pitfalls**
 - Avoid heavy computations every tick; prefer cached values with intervals.
 - Respect existing random bot scheduling to avoid server load spikes.
+
+```mermaid
+flowchart TD
+  A["RPG strategy"] --> B["TravelTarget selection"]
+  B --> C["TravelMgr destinations"]
+  C --> D["Movement actions"]
+  A --> E["RandomPlayerbotMgr scheduling"]
+```
