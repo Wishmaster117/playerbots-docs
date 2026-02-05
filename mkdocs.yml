@@ -13,10 +13,9 @@ theme:
     - navigation.sections
 
 markdown_extensions:
-  - pymdownx.snippets
-  - pymdownx.superfences
   - admonition
   - pymdownx.details
+  - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
