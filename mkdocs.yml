@@ -13,6 +13,7 @@ theme:
     - navigation.sections
 
 markdown_extensions:
+  - pymdownx.snippets
   - admonition
   - pymdownx.details
   - pymdownx.superfences:
