@@ -13,8 +13,6 @@ The aim of this repository is to provide a deep dive into the inner workings of 
 The formatted documentation is available here:
 👉 **[CLICK HERE TO VIEW THE DOCUMENTATION](https://Wishmaster117.github.io/playerbots-docs/)**
 
-*(Replace YOUR_GITHUB_USERNAME with your actual GitHub pseudo)*
-
 ## 📂 What's Inside?
 - **High-Level Architecture:** Understanding how the module hooks into AzerothCore.
 - **Execution Flows:** Step-by-step logic of bot decision-making.
