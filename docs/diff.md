@@ -3,4 +3,4 @@
 ## Full diff
 
 ```diff
---8<-- "diff-2026-02-05.diff"
+--8<-- "docs/diff-2026-02-05.diff"
