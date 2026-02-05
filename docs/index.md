@@ -7,5 +7,5 @@ keep it approachable for new contributors.
 
 - [Module map & glossary](module-map-and-glossary.md)
 - [High-level architecture](high-level-architecture.md)
-- [Phase 2 — Major execution flows](phase-2-execution-flows.md)
+- [Major execution flows](execution-flows.md)
 - [Roadmap](roadmap.md)
