@@ -18,5 +18,5 @@ keep it approachable for new contributors.
 - [Azerothcore Integration](core-changes-playerbots.md)
 - [Azerothcore Changelogs](core-changes-playerbots-changelog.md)
 - [Azerothcore Dev Only](core-changes-playerbots-developer.md)
-- [DIFF 2026/02/05](diff-2026-02-05.md)
+- [DIFF 2026/02/05](diff.md)
 - [Roadmap](roadmap.md)
