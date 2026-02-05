@@ -2,18 +2,6 @@
 
 This page tracks the remaining phases and expected outputs.
 
-## Phase 3 — AI architecture (1–2 weeks)
-
-**Deliverable:** a detailed map of AI modules and extension points.
-
-1. **Context / Engine**
-2. **Strategies**
-3. **Actions**
-4. **Triggers**
-5. **Values**
-
-Goal: explain how a behavior is assembled, with one concrete example.
-
 ## Phase 4 — Gameplay-specific systems (2–4 weeks)
 
 **Deliverable:** dedicated sections for complex systems.
