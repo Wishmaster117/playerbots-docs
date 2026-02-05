@@ -1,13 +1,52 @@
-# Phase 1 — High-level overview (1–2 days)
+# High-level architecture
 
-**Deliverable:** a macro diagram + introduction page.
+This page captures the macro architecture of the module and serves as a stable entry point for new contributors.
 
-## 1.A — Macro component map
+## 1.A — Macro component map (final)
 
-- `PlayerbotAI`: decision core.
-- `PlayerbotMgr`: bots linked to a master player.
-- `RandomPlayerbotMgr`: autonomous bots.
-- `PlayerbotAIConfig`: configuration.
+### Core entry points and orchestrators
+
+| Component | Responsibility | Primary location |
+| --- | --- | --- |
+| **PlayerbotAI** | Per-bot decision controller. Owns the AI context and switches between combat / non-combat / dead engines. | `src/Bot/PlayerbotAI.*` |
+| **PlayerbotMgr** | Manages bots linked to a real player (chat/command routing, login/logout). | `src/Bot/PlayerbotMgr.*` |
+| **RandomPlayerbotMgr** | Manages autonomous bots (population, lifecycle, scheduling). | `src/Bot/RandomPlayerbotMgr.*` |
+| **PlayerbotAIConfig** | Centralized configuration and tunables loaded at server startup. | `src/PlayerbotAIConfig.*` |
+
+### AI decision stack (inside one bot)
+
+| Layer | Responsibility | Primary location |
+| --- | --- | --- |
+| **AiObjectContext** | Registry/factory for actions, triggers, values, strategies. | `src/Bot/Factory/` |
+| **Engines** | Combat / non-combat / dead engines that execute strategies and actions. | `src/Bot/Engine/` |
+| **Strategies** | Behavior bundles that add triggers and actions. | `src/Ai/` |
+| **Actions** | Atomic behaviors executed by the engine (cast, move, loot, travel). | `src/Ai/` |
+| **Triggers & Values** | Conditions and data providers that decide which actions run. | `src/Ai/` |
+
+### Supporting systems (shared services)
+
+| System | Responsibility | Primary location |
+| --- | --- | --- |
+| **TravelMgr** | Travel destinations, RPG locations, routing helpers for movement. | `src/Mgr/Travel/` |
+| **Guild / Item / Move / Security / Talent / Text** | Cross-cutting managers used by AI logic. | `src/Mgr/` |
+| **Repositories & caches** | Data access and precomputed caches for AI decisions. | `src/Db/` |
+| **Scripts** | AzerothCore script hooks and module wiring. | `src/Script/` |
+
+### High-level interaction diagram
+
+```mermaid
+flowchart TD
+  A[PlayerbotMgr] -->|master commands| B[PlayerbotAI]
+  C[RandomPlayerbotMgr] -->|lifecycle/ticks| B
+  B --> D[AiObjectContext]
+  D --> E[Engines]
+  E --> F[Strategies / Triggers / Values]
+  F --> G[Actions]
+  B --> H[PlayerbotAIConfig]
+  B --> I[Mgr/* services]
+  B --> J[Db/* repositories]
+  B --> K[Script/* hooks]
+```
 
 ## 1.B — Roles and interactions
 
