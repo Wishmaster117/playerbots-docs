@@ -2,16 +2,6 @@
 
 This page tracks the remaining phases and expected outputs.
 
-## Phase 4 — Gameplay-specific systems (2–4 weeks)
-
-**Deliverable:** dedicated sections for complex systems.
-
-- Pathfinding / Movement
-- Combat (melee/ranged/heal)
-- Group / Raid logic
-- LFG / BG / Arena
-- Random bot RPG logic
-
 ## Phase 5 — Data & configuration architecture (1 week)
 
 **Deliverable:** a complete mapping of configs & data.

@@ -13,4 +13,5 @@ keep it approachable for new contributors.
 - [High-level architecture](high-level-architecture.md)
 - [Major execution flows](execution-flows.md)
 - [AI architecture](ai-architecture.md)
+- [Gameplay-specific systems](gameplay-specific-systems.md)
 - [Roadmap](roadmap.md)
