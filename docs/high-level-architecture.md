@@ -1,8 +1,6 @@
 # High-level architecture
 
-This page captures the macro architecture of the module and serves as a stable entry point for new contributors.
-
-## 1.A — Macro component map (final)
+## 1.A — Macro component map
 
 ### Core entry points and orchestrators
 
