@@ -1,12 +1,12 @@
-site_name: Playerbots Documentation
+site_name: Documentation Playerbots
 site_url: https://Wishmaster117.github.io/playerbots-docs/
-repo_url: https://github.com/Wishmaster117/playerbots-docs/
+repo_url: https://github.com/wishmaster117/playerbots-docs/
 edit_uri: edit/main/docs/
 
 theme:
   name: material
   language: en
-  palette: 
+  palette:
     primary: indigo
     accent: indigo
   features:
