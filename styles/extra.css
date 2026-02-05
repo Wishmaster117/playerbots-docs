@@ -1,0 +1,21 @@
+.mermaid {
+  overflow-x: auto;
+}
+
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.diagram-zoom {
+  margin-top: 0.75rem;
+}
+
+.diagram-zoom summary {
+  cursor: pointer;
+}
+
+.diagram-zoom .mermaid-large svg {
+  max-width: none;
+  width: 1200px;
+}

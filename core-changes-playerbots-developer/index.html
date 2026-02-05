@@ -1,0 +1,1265 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://Wishmaster117.github.io/playerbots-docs/core-changes-playerbots-developer/">
+      
+      
+        <link rel="prev" href="../core-changes-playerbots-changelog/">
+      
+      
+        <link rel="next" href="../diff/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Azerothcore Dev Only - Documentation Playerbots</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../styles/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-integration-notes-developer-only" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Documentation Playerbots" class="md-header__button md-logo" aria-label="Documentation Playerbots" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Documentation Playerbots
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Azerothcore Dev Only
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/wishmaster117/playerbots-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Documentation Playerbots" class="md-nav__button md-logo" aria-label="Documentation Playerbots" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Documentation Playerbots
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/wishmaster117/playerbots-docs/" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../module-map-and-glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Module map & glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../high-level-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    High-level architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../execution-flows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Major execution flows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AI architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gameplay-specific-systems/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gameplay systems
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-configs-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    data & configs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core-changes-playerbots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azerothcore Integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core-changes-playerbots-changelog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azerothcore Changelogs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azerothcore Dev Only
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Azerothcore Dev Only
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compiletime-contract-mod_playerbots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compile‑time contract: MOD_PLAYERBOTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database contract
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-accessor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global accessor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loader-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loader contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db-lifecycle-hooks-databasescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DB lifecycle hooks: DatabaseScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DB lifecycle hooks: DatabaseScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#startup-gating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Startup gating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-keepalive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shutdown / keepalive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-query-warnings-bridging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sync query warnings bridging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playerbotscript-moduleside-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PlayerbotScript: module‑side control plane
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packet-visibility-serverscriptonpacketreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet visibility: ServerScript::OnPacketReceived
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worldsession-bot-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorldSession bot sessions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WorldSession bot sessions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bot-flag-and-address-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bot flag and address semantics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outgoing-packet-hook-null-opcode-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outgoing packet hook + NULL opcode safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worldsessionmgr-shutdown-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorldSessionMgr shutdown hook
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playerscript-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PlayerScript additions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#movement-integration-reverse-spline-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Movement integration: reverse spline orientation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebase-discipline-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebase discipline (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-core-touchpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference: core touchpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DIFF 2026/02/05
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compiletime-contract-mod_playerbots" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compile‑time contract: MOD_PLAYERBOTS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database contract
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database contract">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-accessor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global accessor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#loader-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loader contract
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#db-lifecycle-hooks-databasescript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DB lifecycle hooks: DatabaseScript
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DB lifecycle hooks: DatabaseScript">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#startup-gating" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Startup gating
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shutdown-keepalive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shutdown / keepalive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-query-warnings-bridging" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sync query warnings bridging
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playerbotscript-moduleside-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PlayerbotScript: module‑side control plane
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packet-visibility-serverscriptonpacketreceived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packet visibility: ServerScript::OnPacketReceived
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worldsession-bot-sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorldSession bot sessions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WorldSession bot sessions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bot-flag-and-address-semantics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bot flag and address semantics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#outgoing-packet-hook-null-opcode-safety" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Outgoing packet hook + NULL opcode safety
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worldsessionmgr-shutdown-hook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WorldSessionMgr shutdown hook
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#playerscript-additions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PlayerScript additions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#movement-integration-reverse-spline-orientation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Movement integration: reverse spline orientation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebase-discipline-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rebase discipline (recommended)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-reference-core-touchpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick reference: core touchpoints
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="core-integration-notes-developer-only">Core integration notes (Developer-only)</h1>
+<p>This page is aimed at developers maintaining the <strong>Playerbot core fork</strong> or working on low‑level integration between AzerothCore and mod‑playerbots.</p>
+<p>It focuses on <strong>entry points, contracts, and gotchas</strong>.</p>
+<h2 id="compiletime-contract-mod_playerbots">Compile‑time contract: <code>MOD_PLAYERBOTS</code></h2>
+<p>All core changes are intended to be behind a single feature gate:</p>
+<ul>
+<li><code>#ifdef MOD_PLAYERBOTS</code></li>
+</ul>
+<p>The build system defines it automatically when the <code>mod-playerbots</code> module is detected during module configuration, and propagates it to the targets the module depends on.</p>
+<p><strong>Rule:</strong> do not introduce additional compile flags for playerbots unless strictly necessary—keep the fork easy to rebase.</p>
+<h2 id="database-contract">Database contract</h2>
+<h3 id="global-accessor">Global accessor</h3>
+<p>When <code>MOD_PLAYERBOTS</code> is enabled, core exposes:</p>
+<ul>
+<li><code>PlayerbotsDatabase</code> (<code>DatabaseWorkerPool&lt;PlayerbotsDatabaseConnection&gt;</code>)</li>
+</ul>
+<p>The module expects the usual AzerothCore DB patterns to work:
+- prepared statements
+- transactions
+- async query holders
+- update flags / revision reporting</p>
+<h3 id="loader-contract">Loader contract</h3>
+<p><code>DatabaseLoader</code> is extended to allow adding a new DB “kind”:</p>
+<ul>
+<li><code>DATABASE_PLAYERBOTS</code> flag</li>
+<li><code>DATABASE_MASK_ALL</code> includes it when enabled</li>
+<li><code>SetUpdateFlags()</code> allows OR‑ing flags (instead of requiring const at ctor)</li>
+</ul>
+<p><strong>Implementation guideline:</strong> keep all playerbots database behavior module‑driven via scripts (see DatabaseScript hooks), avoid hardcoding playerbots SQL logic in core.</p>
+<h2 id="db-lifecycle-hooks-databasescript">DB lifecycle hooks: <code>DatabaseScript</code></h2>
+<h3 id="startup-gating">Startup gating</h3>
+<p><code>bool DatabaseScript::OnDatabasesLoading()</code> allows the module to refuse startup (e.g., missing schema, incompatible revision).</p>
+<p>Core calls it right after DB loader <code>Load()</code> succeeds:
+- If it returns <code>false</code>, worldserver startup aborts.</p>
+<h3 id="shutdown-keepalive">Shutdown / keepalive</h3>
+<ul>
+<li><code>OnDatabasesClosing()</code> is called during <code>StopDB()</code>.</li>
+<li><code>OnDatabasesKeepAlive()</code> exists as an extension point (module can implement ping/maintenance if needed).</li>
+</ul>
+<h3 id="sync-query-warnings-bridging">Sync query warnings bridging</h3>
+<p>Core forwards <code>WarnAboutSyncQueries(true/false)</code> toggles into:
+- <code>OnDatabaseWarnAboutSyncQueries(bool apply)</code></p>
+<p>This keeps “DB warning mode” consistent if the module does DB work during the world loop.</p>
+<h2 id="playerbotscript-moduleside-control-plane">PlayerbotScript: module‑side control plane</h2>
+<p>A new <code>PlayerbotScript</code> family exists specifically so playerbots logic stays in the module.</p>
+<p>Key dispatch points in <code>ScriptMgr</code>:</p>
+<ul>
+<li><code>OnPlayerbotUpdate(diff)</code> and <code>OnPlayerbotUpdateSessions(player)</code></li>
+<li><code>OnPlayerbotLogout(player)</code> and <code>OnPlayerbotLogoutBots()</code></li>
+<li><code>OnPlayerbotPacketSent(player, packet)</code></li>
+<li>Sanity checks: LFG queue, kill tasks, petitions, “updates to send” gating</li>
+</ul>
+<p><strong>Design intent:</strong> core provides event timing + minimal plumbing; module owns behavior.</p>
+<h2 id="packet-visibility-serverscriptonpacketreceived">Packet visibility: <code>ServerScript::OnPacketReceived</code></h2>
+<p>Core adds:</p>
+<ul>
+<li><code>virtual void ServerScript::OnPacketReceived(WorldSession*, WorldPacket const&amp;)</code></li>
+</ul>
+<p>and calls it from <code>WorldSession::Update()</code> behind <code>MOD_PLAYERBOTS</code>, after handlers run.</p>
+<p><strong>Important behavior:</strong>
+- ScriptMgr makes a copy of the packet for dispatch.
+- This is a “tap” for observability and module logic; do not mutate session queue inside this callback unless you fully understand ordering.</p>
+<h2 id="worldsession-bot-sessions">WorldSession bot sessions</h2>
+<h3 id="bot-flag-and-address-semantics">Bot flag and address semantics</h3>
+<p><code>WorldSession</code> ctor adds <code>isBot</code>:
+- stored in <code>_isBot</code>
+- if <code>isBot</code> and no standard address, <code>m_Address = "bot"</code></p>
+<p>Added API:
+- <code>bool IsBot() const</code>
+- <code>void SetAddress(std::string const&amp;)</code>
+- <code>LockedQueue&lt;WorldPacket*&gt;&amp; GetPacketQueue()</code></p>
+<p><strong>Why it matters:</strong> the module can run sessions that are not backed by a normal socket, while still participating in the update loop.</p>
+<h3 id="outgoing-packet-hook-null-opcode-safety">Outgoing packet hook + NULL opcode safety</h3>
+<p><code>WorldSession::SendPacket()</code> now:
+- refuses <code>NULL_OPCODE</code> (logs and returns)
+- calls <code>ScriptMgr::OnPlayerbotPacketSent(GetPlayer(), packet)</code> before sending</p>
+<p>This is useful for:
+- bot client emulation / state sync
+- debugging bot‑visible opcodes</p>
+<h2 id="worldsessionmgr-shutdown-hook">WorldSessionMgr shutdown hook</h2>
+<p><code>WorldSessionMgr::KickAll()</code> calls:
+- <code>ScriptMgr::OnPlayerbotLogoutBots()</code> (behind <code>MOD_PLAYERBOTS</code>)</p>
+<p>This ensures bot cleanup happens on global kicks / shutdown sequences.</p>
+<h2 id="playerscript-additions">PlayerScript additions</h2>
+<ul>
+<li><code>OnPlayerAfterUpdate(Player*, uint32)</code> hook</li>
+<li>chat hook enums:</li>
+<li><code>OnChat</code></li>
+<li><code>OnChatWithReceiver</code></li>
+<li><code>OnChatWithGroup</code></li>
+<li><code>OnChatWithGuild</code></li>
+<li><code>OnChatWithChannel</code></li>
+</ul>
+<p><strong>Typical use in playerbots:</strong>
+- parse/route chat commands
+- update bot AI after core player update</p>
+<h2 id="movement-integration-reverse-spline-orientation">Movement integration: reverse spline orientation</h2>
+<p><code>PointMovementGenerator::DoInitialize()</code>:
+- if <code>_reverseOrientation</code> is set, call <code>MoveSplineInit::SetOrientationInversed()</code></p>
+<p>This is intentionally surgical: no rewrite of pathing, just an extra orientation mode used by bots.</p>
+<h2 id="rebase-discipline-recommended">Rebase discipline (recommended)</h2>
+<p>To keep the fork maintainable:</p>
+<ol>
+<li>Keep all playerbots‑specific core changes either:</li>
+<li>behind <code>MOD_PLAYERBOTS</code>, or</li>
+<li>in new minimal hook functions that are no‑ops by default.</li>
+<li>Avoid touching unrelated gameplay logic.</li>
+<li>Prefer adding <strong>hook points</strong> (ScriptMgr / ScriptDefines) over embedding module logic into core.</li>
+<li>When adding new entry points, document:</li>
+<li>call site</li>
+<li>expected invariants (thread, timing, player existence)</li>
+<li>failure behavior (abort startup, ignore, etc.)</li>
+</ol>
+<h2 id="quick-reference-core-touchpoints">Quick reference: core touchpoints</h2>
+<ul>
+<li>Build:</li>
+<li>module detection → <code>MOD_PLAYERBOTS</code> define</li>
+<li><code>modules</code> links against <code>mysql</code></li>
+<li>DB:</li>
+<li><code>PlayerbotsDatabase</code> pool</li>
+<li><code>DatabaseLoader</code> flags + <code>SetUpdateFlags</code></li>
+<li>Scripts:</li>
+<li><code>DatabaseScript</code> lifecycle extensions</li>
+<li><code>PlayerbotScript</code> family</li>
+<li><code>ServerScript::OnPacketReceived</code></li>
+<li><code>PlayerScript</code> after‑update + chat hooks</li>
+<li>Sessions:</li>
+<li><code>WorldSession</code> bot flag / packet hooks</li>
+<li><code>WorldSessionMgr::KickAll()</code> logout‑bots hook</li>
+<li>Movement:</li>
+<li>reversed orientation in <code>PointMovementGenerator</code></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
