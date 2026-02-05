@@ -48,57 +48,104 @@ flowchart TD
 
 ## 1.B — Roles and interactions
 
-> This section is the first concrete deliverable: a written macro map that can later be converted into a diagram.
+### PlayerbotAI — per-bot AI core
 
-### Core components (entry points)
+- **Construction and AI wiring**
+  - Each bot builds an `AiObjectContext`, then creates three engines (combat, non-combat, dead) through
+    `AiFactory::createCombatEngine`, `createNonCombatEngine`, and `createDeadEngine`. The current engine starts
+    in non-combat by default.  
+  - Packet handlers for master incoming/outgoing and bot outgoing queues are registered during construction.
+- **Per-tick AI loop**
+  - `PlayerbotAI::UpdateAI` prepares state and calls `UpdateAIInternal`.
+  - `UpdateAIInternal` processes queued chat replies, runs `HandleCommands`, handles logout rules, then processes
+    packet handler queues and ends with `DoNextAction(minimal)` to execute the engine decision.
+- **Packet queues / handlers**
+  - **masterIncomingPacketHandlers**: parses master-to-bot packets (game object use, taxi, quest, etc.).
+  - **masterOutgoingPacketHandlers**: forwards bot-related responses back to the master (party/raid events, quest
+    details).
+  - **botOutgoingPacketHandlers**: observes bot->server responses and triggers AI reactions (loot, trade, BG/LFG).
+- **Master management**
+  - `UpdateAIGroupMaster` enforces group/master rules, including reassigning masters for random bots when necessary.
+- **Logout logic (inside `UpdateAIInternal`)**
+  - If the bot session is logging out, the AI checks `ShouldLogOut()` and multiple fast-exit cases:
+    - bot or master resting, in flight, or master session permissions allow instant logout.
+  - If logout is confirmed, the bot is logged out via `PlayerbotMgr::LogoutPlayerBot` (master bots) or
+    `RandomPlayerbotMgr::LogoutPlayerBot` (random bots), and the tick exits early.
 
-- **PlayerbotAI** — main decision engine for a bot instance.  
-  Location: `src/Bot/PlayerbotAI.h` / `src/Bot/PlayerbotAI.cpp`.
-- **PlayerbotMgr** — manages bots linked to a master player (commands, packets, login/logout).  
-  Location: `src/Bot/PlayerbotMgr.h` / `src/Bot/PlayerbotMgr.cpp`.
-- **RandomPlayerbotMgr** — manages autonomous/random bots (lifecycle, scheduling, stats).  
-  Location: `src/Bot/RandomPlayerbotMgr.h` / `src/Bot/RandomPlayerbotMgr.cpp`.
-- **PlayerbotAIConfig** — centralized configuration and tunables for bot behavior.  
-  Location: `src/PlayerbotAIConfig.h` / `src/PlayerbotAIConfig.cpp`.
+### PlayerbotMgr — master-bound bot orchestration
 
-### High-level responsibilities
+- **Command fan-out**
+  - `PlayerbotMgr::HandleCommand` splits multi-commands and forwards them to each bot AI (including random bots
+    currently bound to the same master).
+- **Packet fan-out**
+  - `PlayerbotMgr::HandleMasterIncomingPacket` forwards master packets to each bot AI and reacts to login/logout
+    opcodes by logging bots in or out.
+- **Periodic update**
+  - `PlayerbotMgr::UpdateAIInternal` only maintains error notifications and timing, deferring AI decisions to
+    each bot’s `PlayerbotAI` instance.
 
-- **AI decision flow:** `PlayerbotAI` orchestrates decision-making and behavior for a single bot.
-- **Master-bound bots:** `PlayerbotMgr` handles player-controlled bots and their command interface.
-- **Random bots:** `RandomPlayerbotMgr` handles autonomous bots and their lifecycle policies.
-- **Configuration:** `PlayerbotAIConfig` provides shared settings and timing values.
+### RandomPlayerbotMgr — autonomous population manager
 
-### Directory overview (macro)
+- **Population control**
+  - `RandomPlayerbotMgr::UpdateAIInternal` computes target bot counts, manages login/logout, and schedules which bots
+    will be updated on each cycle.
+- **Queue integrations**
+  - The same update loop triggers background checks for BG and LFG queues based on configured timers.
+- **Bot processing**
+  - Selected bots are processed via `ProcessBot`, which decides whether to update an online bot or log in a new one.
 
-- `src/Bot/` — core bot AI, managers, and command handling.
-- `src/Ai/` — AI logic (strategies, actions, triggers, class-specific behavior).
-- `src/Mgr/` — manager helpers and cross‑cutting systems.
-- `src/Db/` — data access and persistence logic.
-- `src/Util/` — shared utilities.
+### Interaction sketch (textual, consolidated)
 
-### Interaction sketch (textual)
+1. **Bot creation / login**: `PlayerbotMgr` or `RandomPlayerbotMgr` brings a bot online and constructs `PlayerbotAI`.
+2. **AI wiring**: `PlayerbotAI` builds `AiObjectContext`, initializes engines, and registers packet handlers.
+3. **Per-tick**: `PlayerbotAI::UpdateAI` → `UpdateAIInternal` → `DoNextAction` drives decision-making.
+4. **Master commands**: `PlayerbotMgr::HandleCommand` fans out text commands to bot AIs.
+5. **Autonomous lifecycle**: `RandomPlayerbotMgr::UpdateAIInternal` schedules bot updates and logins.
 
-1. **Bot login** enters via `PlayerbotMgr` or `RandomPlayerbotMgr`.
-2. A **PlayerbotAI** instance is associated with the bot player.
-3. **Update cycles** call into AI decisions.
-4. **Configuration** values from `PlayerbotAIConfig` guide timing and behaviors.
+### Mini timeline (who calls who)
+
+```mermaid
+sequenceDiagram
+  participant M as PlayerbotMgr
+  participant R as RandomPlayerbotMgr
+  participant A as PlayerbotAI
+  participant F as AiFactory
+  participant E as Engine
+
+  M->>A: Construct PlayerbotAI (master bots)
+  R->>A: Construct PlayerbotAI (random bots)
+  A->>F: createAiObjectContext + create*Engine
+  A->>A: Register packet handlers
+  A->>A: UpdateAI
+  A->>A: UpdateAIInternal
+  A->>E: DoNextAction
+```
+
+### Flow table (core interactions)
+
+| Trigger | Orchestrator | Key calls | Outcome |
+| --- | --- | --- | --- |
+| Master chat command | `PlayerbotMgr` | `HandleCommand` → `PlayerbotAI::HandleCommand` | Bot strategy/action update |
+| Bot tick | `PlayerbotAI` | `UpdateAI` → `UpdateAIInternal` → `DoNextAction` | Action selection and execution |
+| Master packet | `PlayerbotMgr` | `HandleMasterIncomingPacket` → `PlayerbotAI::HandleMasterIncomingPacket` | Bot reacts to master |
+| Random bot tick | `RandomPlayerbotMgr` | `UpdateAIInternal` → `ProcessBot` | Update existing bots / login new bots |
 
 ## 1.C — Notes for diagram (confirmed from code)
 
 - **AI engine construction & strategy injection**
-  - `PlayerbotAI::PlayerbotAI(Player* bot)` creates the **AI context** via
+  - `PlayerbotAI::PlayerbotAI(Player* bot)` creates the **AI context** with
     `AiFactory::createAiObjectContext`, then builds the **combat**, **non-combat**, and **dead**
-    engines with `AiFactory::createCombatEngine`, `createNonCombatEngine`, and `createDeadEngine`.
-  - Each engine is built by `AiFactory` where default strategies are attached
+    engines using `AiFactory::createCombatEngine`, `createNonCombatEngine`, and `createDeadEngine`.
+  - Each engine is assembled in `AiFactory`, where default strategies are attached
     (`AddDefaultCombatStrategies`, `AddDefaultNonCombatStrategies`, `AddDefaultDeadStrategies`),
-    then `Engine::Init()` finalizes the setup.
+    followed by `Engine::Init()` to finalize triggers and actions.
 - **Update tick entry point**
-  - `PlayerbotAI::UpdateAI` is the per-bot tick function; it gates updates (state checks, cheats),
-    then calls `UpdateAIInternal`.
-  - `PlayerbotAI::UpdateAIInternal` handles queued packets, commands, and ends with
-    `DoNextAction(minimal)` which drives the action selection/dispatch.
-  - Manager ticks: `PlayerbotMgr::UpdateAIInternal` runs error notification timers for master-bound bots,
-    while `RandomPlayerbotMgr::UpdateAIInternal` manages random bot lifecycle, counts, and scheduling.
+  - `PlayerbotAI::UpdateAI` is the per-bot tick. It runs early guards (world/session state, transport),
+    updates group/master state, and then calls `UpdateAIInternal`.
+  - `PlayerbotAI::UpdateAIInternal` processes chat replies, runs `HandleCommands`, applies logout rules,
+    processes packet handler queues, then calls `DoNextAction(minimal)` to dispatch the next AI action.
+  - Manager ticks: `PlayerbotMgr::UpdateAIInternal` handles master-bot error reporting timers, while
+    `RandomPlayerbotMgr::UpdateAIInternal` drives random-bot population updates and scheduling.
 - **Random bot data stores (state/queues/caches)**
   - **Battle/queue tracking:** `BattlegroundData`, `VisualBots`, `Supporters`, `LfgDungeons`.
   - **Caching:** `BattleMastersCache`, `eventCache`, `rpgLocsCacheLevel`, `zone2LevelBracket`,
