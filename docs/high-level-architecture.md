@@ -130,7 +130,7 @@ sequenceDiagram
 | Master packet | `PlayerbotMgr` | `HandleMasterIncomingPacket` → `PlayerbotAI::HandleMasterIncomingPacket` | Bot reacts to master |
 | Random bot tick | `RandomPlayerbotMgr` | `UpdateAIInternal` → `ProcessBot` | Update existing bots / login new bots |
 
-## 1.C — Notes for diagram (confirmed from code)
+## 1.C — Notes for diagram
 
 - **AI engine construction & strategy injection**
   - `PlayerbotAI::PlayerbotAI(Player* bot)` creates the **AI context** with
