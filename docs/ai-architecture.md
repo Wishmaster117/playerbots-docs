@@ -1,4 +1,4 @@
-# Phase 3 — AI architecture
+# 3 — AI architecture
 
 This page focuses on the **AI building blocks** used across the module: context, engine, strategies, actions, triggers, and values.
 

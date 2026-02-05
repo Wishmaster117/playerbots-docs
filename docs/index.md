@@ -14,4 +14,5 @@ keep it approachable for new contributors.
 - [Major execution flows](execution-flows.md)
 - [AI architecture](ai-architecture.md)
 - [Gameplay-specific systems](gameplay-specific-systems.md)
+- [Data & configuration architecture](data-configs-architecture.md)
 - [Roadmap](roadmap.md)

@@ -1,4 +1,4 @@
-# High-level architecture
+# 1 - High-level architecture
 
 ## 1.A — Macro component map
 

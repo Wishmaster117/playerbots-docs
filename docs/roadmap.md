@@ -1,16 +1,8 @@
-# Architecture Plan Roadmap
+# TODO Roadmap
 
 This page tracks the remaining phases and expected outputs.
 
-## Phase 5 — Data & configuration architecture (1 week)
-
-**Deliverable:** a complete mapping of configs & data.
-
-- `playerbots.conf` and key variables
-- DB tables used by the module
-- Runtime data (caches, flags, transient state)
-
-## Phase 6 — Quick contribution guide (1 week)
+## Quick contribution guide
 
 **Deliverable:** a "first patch" guide.
 

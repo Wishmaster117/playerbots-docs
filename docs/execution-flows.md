@@ -1,4 +1,4 @@
-# Phase 2 — Major execution flows
+# 2 — Major execution flows
 
 This page documents the **runtime flows** that most contributors need to understand first: the per‑bot update loop, login/attach, command routing, packet routing, and random bot lifecycle. All flows are based on the current code in `src/Bot/` and `src/Script/`.
 

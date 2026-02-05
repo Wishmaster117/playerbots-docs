@@ -30,4 +30,5 @@ nav:
   - Major execution flows: execution-flows.md
   - AI architecture: ai-architecture.md
   - Gameplay systems: gameplay-specific-systems.md
+  - data & configs: data-configs-architecture.md
   - Roadmap: roadmap.md
