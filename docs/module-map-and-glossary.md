@@ -1,8 +1,8 @@
-# Phase 0 — Preparation (1–2 hours)
+# Module map & glossary (Phase 0)
 
 **Deliverable:** a documentation outline and an initial glossary.
 
-## 0.A — Folder map (main roles)
+## Module map (folders & roles)
 
 | Folder | Role |
 | --- | --- |
@@ -14,7 +14,7 @@
 | `src/Util/` | Shared utility helpers used across the module. |
 | `src/PlayerbotAIConfig.*` | Central configuration and tunables for bot behavior. |
 
-### 0.A.1 — `src/Ai/` (subfolders)
+### `src/Ai/` (subfolders)
 
 - `Base/` — shared base AI logic (actions, triggers, values).
 - `Class/` — class-specific AI logic.
@@ -22,7 +22,7 @@
 - `Raid/` — raid-specific strategies/triggers/actions.
 - `World/` — world/overworld behavior logic.
 
-### 0.A.2 — `src/Bot/` (subfolders + key files)
+### `src/Bot/` (subfolders + key files)
 
 - `Cmd/` — command handling helpers.
 - `Debug/` — debugging utilities for bots.
@@ -32,14 +32,14 @@
 - `PlayerbotMgr.*` — master-bound bot manager.
 - `RandomPlayerbotMgr.*` — random bot manager.
 
-### 0.A.3 — `src/Db/` (repositories/caches)
+### `src/Db/` (repositories/caches)
 
 - `FlightMasterCache.*`
 - `PlayerbotDungeonRepository.*`
 - `PlayerbotRepository.*`
 - `PlayerbotSpellRepository.*`
 
-### 0.A.4 — `src/Mgr/` (subfolders)
+### `src/Mgr/` (subfolders)
 
 - `Guild/`
 - `Item/`
@@ -49,7 +49,7 @@
 - `Text/`
 - `Travel/`
 
-### 0.A.5 — `src/Script/` (scripts)
+### `src/Script/` (scripts)
 
 - `PlayerbotCommandScript.*`
 - `Playerbots.*`
@@ -57,7 +57,7 @@
 - `playerbots_loader.cpp`
 - `WorldThr/`
 
-### 0.A.6 — `src/Util/` (helpers)
+### `src/Util/` (helpers)
 
 - `BroadcastHelper.*`
 - `Helpers.*`
@@ -92,7 +92,7 @@ flowchart TD
   F --> F7[Travel]
 ```
 
-## 0.B — Glossary (initial)
+## Glossary (initial)
 
 - **Bot**: A character controlled by `PlayerbotAI` instead of a human player.
 - **Master**: The real player controlling one or more bots via commands (linked to `PlayerbotMgr`).
@@ -104,7 +104,7 @@ flowchart TD
 - **Engine**: The decision dispatcher that runs strategies, evaluates triggers, and executes actions.
 - **Context (AiObjectContext)**: Factory + registry for actions, triggers, values, and strategies.
 
-## 0.C — Common section format (for all later pages)
+## Common section format (for all later pages)
 
 Use this structure for every component or subsystem page:
 
