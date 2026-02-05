@@ -1,6 +1,4 @@
-# Module map & glossary (Phase 0)
-
-**Deliverable:** a documentation outline and an initial glossary.
+# Module map & glossary
 
 ## Module map (folders & roles)
 
@@ -1336,15 +1334,31 @@ flowchart TD
 
 ## Glossary (initial)
 
-- **Bot**: A character controlled by `PlayerbotAI` instead of a human player.
-- **Master**: The real player controlling one or more bots via commands (linked to `PlayerbotMgr`).
 - **Random bot**: Autonomous bot managed by `RandomPlayerbotMgr` (not tied to a master).
+- **Random bot account**: An account flagged as RNDbot (account type 1) used to host random bot characters.
+- **AddClass account**: An account flagged as AddClass (account type 2) used for AddClass bots.
+- **Alt bot account**: An account used for master-controlled “alt” characters, typically tied to a single real player.
+- **BotState**: The bot AI mode that selects which engine runs (combat, non-combat, or dead).
+- **Combat / Non-combat / Dead engine**: The three decision engines built for a bot and switched based on `BotState`.
+- **AiFactory**: Factory that builds `AiObjectContext` and the default engines/strategies for a bot.
+- **PlayerbotAIConfig**: Central configuration class that loads server-side settings for the playerbot system.
+- **PlayerbotHolder**: Base container that stores and tracks active bot players.
+- **PlayerbotFactory**: Helper that creates and configures bot characters (gear, talents, inventories, etc.).
+- **RandomPlayerbotFactory**: Factory dedicated to creating random bot accounts/characters and balancing population.
 - **Strategy**: A behavior bundle registered into an `Engine` (e.g., combat or non‑combat).
 - **Action**: A single executable behavior chosen by the `Engine` (cast, move, loot, etc.).
 - **Trigger**: A condition that selects which action should run.
 - **Value**: A data provider used by triggers/actions (cached computation).
 - **Engine**: The decision dispatcher that runs strategies, evaluates triggers, and executes actions.
 - **Context (AiObjectContext)**: Factory + registry for actions, triggers, values, and strategies.
+- **RPG / New RPG**: Autonomous “roleplay” logic for random bots (wandering, quests, travel, grinding).
+- **RPG target**: The current world object or position selected for RPG behavior.
+- **TravelMgr**: Manager that computes travel destinations and routes for bots.
+- **Travel target**: The current destination used by travel logic (quests, flight paths, RPG locations).
+- **LFG**: Looking For Group system integration for bot grouping and dungeon participation.
+- **BG (Battleground)**: PvP battleground participation system used by bots.
+- **Arena team**: Random bot arena team infrastructure used to populate PvP arenas.
+- **AutoGear**: Automated gear selection/upgrade logic for bot characters.
 
 ## Common section format (for all later pages)
 
