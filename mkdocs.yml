@@ -1,4 +1,4 @@
-site_name: PlayerBots Documentation
+site_name: Documentation Playerbots
 site_url: https://Wishmaster117.github.io/playerbots-docs/
 repo_url: https://github.com/wishmaster117/playerbots-docs/
 edit_uri: edit/main/docs/
@@ -20,10 +20,12 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+extra_css:
+  - styles/extra.css
 
 nav:
   - Home: index.md
   - Module map & glossary: module-map-and-glossary.md
-  - High-level architecture: high-level-architecture.md
+  - Phase 1 (high-level overview): phase-1-high-level-overview.md
   - Phase 2 (execution flows): phase-2-execution-flows-ai-tick.md
   - Roadmap: roadmap.md
