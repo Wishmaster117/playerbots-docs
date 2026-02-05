@@ -6,13 +6,64 @@
 
 | Folder | Role |
 | --- | --- |
-| `src/Ai/` | AI logic: strategies, actions, triggers, values, class/dungeon/raid specializations. |
-| `src/Bot/` | Bot core: `PlayerbotAI`, bot managers, bot engine factories, command handling. |
+| `src/Ai/` | AI logic: strategies, actions, triggers, values, class/dungeon/raid/world specializations. |
+| `src/Bot/` | Bot core: `PlayerbotAI`, bot managers, engine factories, command handling. |
 | `src/Db/` | Data access and persistence logic for playerbots. |
 | `src/Mgr/` | Managers and cross‑cutting systems (services used across bot subsystems). |
 | `src/Script/` | Script bindings/integration points with AzerothCore. |
 | `src/Util/` | Shared utility helpers used across the module. |
 | `src/PlayerbotAIConfig.*` | Central configuration and tunables for bot behavior. |
+
+### 0.A.1 — `src/Ai/` (subfolders)
+
+- `Base/` — shared base AI logic (actions, triggers, values).
+- `Class/` — class-specific AI logic.
+- `Dungeon/` — dungeon-specific strategies/triggers/actions.
+- `Raid/` — raid-specific strategies/triggers/actions.
+- `World/` — world/overworld behavior logic.
+
+### 0.A.2 — `src/Bot/` (subfolders + key files)
+
+- `Cmd/` — command handling helpers.
+- `Debug/` — debugging utilities for bots.
+- `Engine/` — decision engine core (strategies/actions orchestration).
+- `Factory/` — AI context/engine factories and default strategy wiring.
+- `PlayerbotAI.*` — main bot AI entry point.
+- `PlayerbotMgr.*` — master-bound bot manager.
+- `RandomPlayerbotMgr.*` — random bot manager.
+
+### 0.A.3 — `src/Db/` (repositories/caches)
+
+- `FlightMasterCache.*`
+- `PlayerbotDungeonRepository.*`
+- `PlayerbotRepository.*`
+- `PlayerbotSpellRepository.*`
+
+### 0.A.4 — `src/Mgr/` (subfolders)
+
+- `Guild/`
+- `Item/`
+- `Move/`
+- `Security/`
+- `Talent/`
+- `Text/`
+- `Travel/`
+
+### 0.A.5 — `src/Script/` (scripts)
+
+- `PlayerbotCommandScript.*`
+- `Playerbots.*`
+- `PlayerbotsSecureLogin.*`
+- `playerbots_loader.cpp`
+- `WorldThr/`
+
+### 0.A.6 — `src/Util/` (helpers)
+
+- `BroadcastHelper.*`
+- `Helpers.*`
+- `LazyCalculatedValue.h`
+- `PlaceholderHelper.*`
+- `ServerFacade.*`
 
 ```mermaid
 flowchart TD
@@ -23,6 +74,22 @@ flowchart TD
   B --> F[src/Mgr]
   B --> G[src/Script]
   B --> H[src/Util]
+  C --> C1[Base]
+  C --> C2[Class]
+  C --> C3[Dungeon]
+  C --> C4[Raid]
+  C --> C5[World]
+  B --> B1[Cmd]
+  B --> B2[Debug]
+  B --> B3[Engine]
+  B --> B4[Factory]
+  F --> F1[Guild]
+  F --> F2[Item]
+  F --> F3[Move]
+  F --> F4[Security]
+  F --> F5[Talent]
+  F --> F6[Text]
+  F --> F7[Travel]
 ```
 
 ## 0.B — Glossary (initial)
