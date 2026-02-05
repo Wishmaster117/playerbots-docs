@@ -20,3 +20,10 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: index.md
+  - Phase 0: phase-0-preparation.md
+  - Phase 1: phase-1-overview.md
+  - Phase 2: phase-2-execution-flows.md
+  - Roadmap: roadmap.md
